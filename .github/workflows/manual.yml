@@ -17,5 +17,5 @@ jobs:
         with:
           python-version: 3.13t
       - run: uv sync
-      - run: uv run --version
+      - run: uv --version
       - run: uv run main.py
