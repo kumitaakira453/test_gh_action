@@ -37,24 +37,45 @@ def convert_article_to_html(article: Article) -> str:
                         color: #000000;
                     "
                 >
-                    <div style="
-                        font-size: 16px;
-                        font-weight: 500;
-                        margin-bottom: 4px;
-                    ">
-                        {article["title"]}
-                    </div>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <!-- Avatar -->
+                            <td width="40" valign="top" style="padding-right: 10px;">
+                                <img
+                                    src="{article["user"]["avatar_small_url"]}"
+                                    width="40"
+                                    height="40"
+                                    style="
+                                        display: block;
+                                        border-radius: 50%;
+                                    "
+                                    alt=""
+                                />
+                            </td>
 
-                    <div style="
-                        font-size: 12px;
-                        color: #666;
-                    ">
-                        <span>★ {article["liked_count"]}</span>
-                        <span style="margin-left: 10px;">
-                            🕒 {article["published_at"].strftime("%Y/%m/%d %H:%M")}
-                        </span>
-                    </div>
-                </a>
+                            <!-- Content -->
+                            <td valign="top">
+                                <div style="
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                    margin-bottom: 4px;
+                                ">
+                                    {article["title"]}
+                                </div>
+
+                                <div style="
+                                    font-size: 12px;
+                                    color: #666;
+                                ">
+                                    <span>★ {article["liked_count"]}</span>
+                                    <span style="margin-left: 10px;">
+                                        🕒 {article["published_at"].strftime("%Y/%m/%d %H:%M")}
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </a>    
             </li>
             """
 
