@@ -21,10 +21,8 @@ class Article(TypedDict):
     path: str
 
 
-def display_article(article: Article) -> None:
-    print(
-        f"- [{article['title']}](https://zenn.dev/{article['path']})({article['liked_count']})"
-    )
+def format_article(article: Article) -> str:
+    return f"- [{article['title']}](https://zenn.dev/{article['path']})({article['liked_count']})"
 
 
 class ZennAPI:
