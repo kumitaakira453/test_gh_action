@@ -1,3 +1,4 @@
+import datetime
 from typing import Any, Iterable, TypedDict
 
 import requests
@@ -19,10 +20,43 @@ class Article(TypedDict):
     liked_count: int
     user: User
     path: str
+    published_at: datetime.datetime
 
 
-def format_article(article: Article) -> str:
-    return f"- [{article['title']}](https://zenn.dev/{article['path']})({article['liked_count']})"
+def convert_article_to_html(article: Article) -> str:
+    return f"""
+            <li style="margin-bottom: 12px;">
+                <a
+                    href="https://zenn.dev/{article["path"]}"
+                    style="
+                        display: block;
+                        padding: 12px 14px;
+                        background-color: #f9f9f9;
+                        border-radius: 6px;
+                        text-decoration: none;
+                        color: #000000;
+                    "
+                >
+                    <div style="
+                        font-size: 16px;
+                        font-weight: 500;
+                        margin-bottom: 4px;
+                    ">
+                        {article["title"]}
+                    </div>
+
+                    <div style="
+                        font-size: 12px;
+                        color: #666;
+                    ">
+                        <span>★ {article["liked_count"]}</span>
+                        <span style="margin-left: 10px;">
+                            🕒 {article["published_at"].strftime("%Y/%m/%d %H:%M")}
+                        </span>
+                    </div>
+                </a>
+            </li>
+            """
 
 
 class ZennAPI:
@@ -48,6 +82,7 @@ class ZennAPI:
                     title=ra["title"],
                     liked_count=ra["liked_count"],
                     path=ra["path"],
+                    published_at=datetime.datetime.fromisoformat(ra["published_at"]),
                     user=User(
                         id=ra["user"]["id"],
                         username=ra["user"]["username"],

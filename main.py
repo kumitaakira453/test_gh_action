@@ -1,5 +1,5 @@
 from src.email_notification import EmailNotification
-from src.zenn import ZennAPI, format_article
+from src.zenn import ZennAPI, convert_article_to_html
 
 ZENN_API_BASE_URL = "https://zenn.dev/api"
 NOTIFICATION_EMAIL = "akirakumi.0815@gmail.com"
@@ -10,7 +10,7 @@ def main():
     print("start")
     zenn_api = ZennAPI(ZENN_API_BASE_URL)
     articles = zenn_api.get_articles()
-    formatted_articles = [format_article(article) for article in articles]
+    formatted_articles = [convert_article_to_html(article) for article in articles]
     email_notification = EmailNotification(
         NOTIFICATION_EMAIL,
         NOTIFICATION_TITLE,
